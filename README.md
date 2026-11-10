@@ -150,10 +150,10 @@ Keep the stock `boot.img` (extracted by script 06) as your rollback path.
 ## Repository layout
 
 ```
-docs/        technical documentation (pins, verified build, flash safety)
+docs/        technical documentation (pins, compatibility, verified build, flash safety)
 scripts/   environment check, source fetch, build, verify, repack
 state/     stock build config + vermagic + recorded KMI symbol table
-.github/   optional CI workflow (build + KMI gate + artifacts)
+.github/   CI workflow and issue templates
 ```
 
 `kernel-src/`, `tools/`, `firmware/` and `build/` are created locally and are
@@ -184,3 +184,11 @@ for released binaries is described in [`SOURCE.md`](SOURCE.md).
 Bug reports and pull requests are welcome — please read
 [`CONTRIBUTING.md`](CONTRIBUTING.md) first. Every change must keep the KMI gate
 green (`python3 scripts/verify_kmi_abi.py` → 0 mismatches).
+
+- Check [`docs/COMPATIBILITY.md`](docs/COMPATIBILITY.md) before reporting: the
+  project supports one device and one firmware family.
+- Use the [bug report form](https://github.com/trivl-dev/nuwa-gki-ksu-susfs/issues/new?template=bug_report.yml)
+  for defects — it asks for the kernel, firmware and manager versions needed to
+  triage.
+- Use [Discussions](https://github.com/trivl-dev/nuwa-gki-ksu-susfs/discussions)
+  for questions, build help and ideas.
