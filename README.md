@@ -178,3 +178,9 @@ kernel can be rebuilt without access to `android.googlesource.com`.
 Kernel code is **GPL-2.0** (see `LICENSE`). Third-party components and their
 licenses are listed in [`NOTICE.md`](NOTICE.md); the exact corresponding source
 for released binaries is described in [`SOURCE.md`](SOURCE.md).
+
+## Contributing
+
+Bug reports and pull requests are welcome — please read
+[`CONTRIBUTING.md`](CONTRIBUTING.md) first. Every change must keep the KMI gate
+green (`python3 scripts/verify_kmi_abi.py` → 0 mismatches).
