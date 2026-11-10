@@ -1,0 +1,119 @@
+name: Bug report
+description: Report a problem with the kernel, the SUSFS module or the build tooling
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Before filing, please read
+        [`CONTRIBUTING.md`](https://github.com/trivl-dev/nuwa-gki-ksu-susfs/blob/main/CONTRIBUTING.md)
+        and [`docs/COMPATIBILITY.md`](https://github.com/trivl-dev/nuwa-gki-ksu-susfs/blob/main/docs/COMPATIBILITY.md).
+
+        Reports without the version information below cannot be triaged.
+
+  - type: input
+    id: device
+    attributes:
+      label: Device model
+      description: "`adb shell getprop ro.product.model`"
+      placeholder: "2210132G (Xiaomi 13 Pro, nuwa)"
+    validations:
+      required: true
+
+  - type: input
+    id: firmware
+    attributes:
+      label: HyperOS build
+      description: "`adb shell getprop ro.build.display.id`"
+      placeholder: "OS3.0.303.0.WMBMIXM"
+    validations:
+      required: true
+
+  - type: input
+    id: kernel
+    attributes:
+      label: Kernel release
+      description: "`adb shell uname -r`"
+      placeholder: "5.15.194-android13-8-00019-gf4321180a397-ab15212794"
+    validations:
+      required: true
+
+  - type: input
+    id: manager
+    attributes:
+      label: KernelSU-Next manager version
+      description: Shown on the manager home screen, for example `v3.4.2 (33355-5)`
+    validations:
+      required: true
+
+  - type: dropdown
+    id: release
+    attributes:
+      label: Release you flashed
+      options:
+        - v5.15.194-20261110
+        - built from source (describe in "Additional context")
+    validations:
+      required: true
+
+  - type: dropdown
+    id: method
+    attributes:
+      label: Installation method
+      options:
+        - fastboot boot (test boot only)
+        - fastboot flash boot
+        - Skyward
+        - other (describe in "Additional context")
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: |
+        With root available, paste the output of:
+        `adb shell "su -c 'dmesg | grep -iE \"disagrees about version|Unknown symbol\"'"`
+        (must be empty when the kernel matches the firmware) and
+        `adb shell "su -c 'cat /proc/version'"`.
+      render: shell
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I read CONTRIBUTING.md and docs/COMPATIBILITY.md
+          required: true
+        - label: I am running the firmware listed above, with the stock vendor partitions untouched
+          required: true
+        - label: I have a stock boot.img available as rollback
+          required: true
+        - label: The dmesg check for "disagrees about version" / "Unknown symbol" is empty, or I pasted it above

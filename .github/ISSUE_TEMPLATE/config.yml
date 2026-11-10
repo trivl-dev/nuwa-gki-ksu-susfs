@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions, ideas and general help
+    url: https://github.com/trivl-dev/nuwa-gki-ksu-susfs/discussions
+    about: Ask about building, flashing, KernelSU-Next or SUSFS. Please do not open an issue for questions.
+  - name: Build and flash documentation
+    url: https://github.com/trivl-dev/nuwa-gki-ksu-susfs/blob/main/docs/FLASH-SAFETY.md
+    about: Test boot, flashing, rollback and OTA behaviour.
+  - name: Compatibility matrix
+    url: https://github.com/trivl-dev/nuwa-gki-ksu-susfs/blob/main/docs/COMPATIBILITY.md
+    about: Supported device, firmware and version combinations.
