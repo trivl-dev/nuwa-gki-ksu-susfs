@@ -1,0 +1,29 @@
+# build outputs
+kernel-src/
+tools/
+firmware/
+build/
+
+# build logs / transient state
+state/*.log
+state/*.sha256
+state/System.map-*
+state/build-*.config
+state/kmi/*.tmp
+state/kmi/*.bin
+state/strings-image.txt
+
+# binary artifacts belong in GitHub Releases, never in git
+*.img
+*.ko
+*.zip
+*.tar.xz
+Image-*
+
+# editor / OS noise
+.DS_Store
+*.swp
+
+# python bytecode
+__pycache__/
+*.pyc
