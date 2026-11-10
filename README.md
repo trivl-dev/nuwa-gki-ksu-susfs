@@ -1,5 +1,9 @@
 # nuwa-gki-ksu-susfs
 
+[![License: GPL-2.0](https://img.shields.io/badge/license-GPL--2.0-blue.svg)](LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/trivl-dev/nuwa-gki-ksu-susfs?label=release)](https://github.com/trivl-dev/nuwa-gki-ksu-susfs/releases/latest)
+[![Build](https://github.com/trivl-dev/nuwa-gki-ksu-susfs/actions/workflows/build.yml/badge.svg)](https://github.com/trivl-dev/nuwa-gki-ksu-susfs/actions/workflows/build.yml)
+
 Custom **GKI 5.15.194** kernel for the **Xiaomi 13 Pro (nuwa)** running
 **HyperOS 3 Global `OS3.0.303.0.WMBMIXM` (Android 16)**, with
 **KernelSU-Next v3.4.2 built in** and **SUSFS as a loadable LKM**.
