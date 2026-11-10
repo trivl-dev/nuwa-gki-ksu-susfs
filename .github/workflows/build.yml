@@ -1,0 +1,76 @@
+name: build-kernel
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: nuwa 5.15.194 + KernelSU-Next v3.4.2
+    runs-on: ubuntu-22.04
+    timeout-minutes: 300
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install host dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y --no-install-recommends \
+            build-essential bc bison flex libncurses-dev libssl-dev libelf-dev \
+            dwarves python3 python-is-python3 zip unzip cpio zstd file curl git
+
+      - name: Preflight — pinned inputs present
+        run: |
+          test -s state/stock-5.15.194.config
+          test -s state/stock-vermagic.txt
+          grep -q '^# Linux/arm64 5.15.194 Kernel Configuration' state/stock-5.15.194.config
+          command -v pahole
+
+      - name: Cache toolchain
+        uses: actions/cache@v4
+        with:
+          path: |
+            tools/clang
+            tools/magiskboot
+          key: toolchain-clang-r536225-magiskboot-v31.1
+
+      - name: Fetch sources (ACK @ pin + KernelSU-Next v3.4.2)
+        run: bash scripts/02_fetch_sources.sh
+
+      - name: Fetch toolchain (clang-r536225 + magiskboot)
+        run: bash scripts/03_fetch_toolchain.sh
+
+      - name: Build kernel (config asserts + smoke + Image + KMI gate)
+        run: bash scripts/04_build_kernel.sh
+        env:
+          JOBS_OVERRIDE: 4
+
+      - name: Build SUSFS LKM
+        run: bash scripts/05_build_susfs_lkm.sh
+
+      - name: Verify KMI against Google ABI (standalone re-run)
+        run: python3 scripts/verify_kmi_abi.py
+
+      - name: Checksums
+        run: |
+          sha256sum build/Image-* build/susfs_guard_lkm.ko > SHA256SUMS
+          cat SHA256SUMS
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuwa-kernel-5.15.194-ksu-v3.4.2
+          if-no-files-found: error
+          path: |
+            build/Image-*
+            build/susfs_guard_lkm*.ko
+            state/System.map-*
+            state/build-*.config
+            SHA256SUMS
