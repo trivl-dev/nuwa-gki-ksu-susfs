@@ -84,7 +84,7 @@ ends in a boot loop. This project instead:
 ## Quick start
 
 ```bash
-git clone https://github.com/<you>/nuwa-gki-ksu-susfs.git
+git clone https://github.com/trivl-dev/nuwa-gki-ksu-susfs.git
 cd nuwa-gki-ksu-susfs
 
 bash scripts/00_check_env.sh
